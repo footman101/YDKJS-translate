@@ -1,5 +1,7 @@
-[原文地址](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/foreword.md)
-#前言
+原文地址：
+[https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/foreword.md](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/foreword.md)
+
+# 前言
 ----
 你最近学习的新东西是什么？
 

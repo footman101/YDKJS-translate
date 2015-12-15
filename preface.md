@@ -1,6 +1,7 @@
-[原文地址](https://github.com/getify/You-Dont-Know-JS/blob/master/preface.md)
+原文地址：
+[https://github.com/getify/You-Dont-Know-JS/blob/master/preface.md](https://github.com/getify/You-Dont-Know-JS/blob/master/preface.md)
 
-#序言
+# 序言
 ----
 
 我确信你已经注意到，虽然谩骂JavaScript这门语言的怪癖可能是我们的共识，但是书名中的JS并不是什么诅咒JavaScript的缩写。
@@ -17,7 +18,7 @@
 
 在JavaScript中有个悖论，就像这门语言的阿基里斯之踵，我们都要面对的问题。由于JavaScript可以在不用理解的情况下使用，那么我们可能并不会去理解它。
 
-#任务
+# 任务
 ----
 
 如果在JavaScript中你遇到了意料之外的或者令人沮丧的东西，你的反应是将它列入黑名单。久而久之，JavaScript的宝藏对于你来说只是一个空壳。
@@ -32,7 +33,7 @@ JavaScript的好的部分十分著名（"The Good Parts"），我会恳求你，
 
 你当前所知的JavaScript可能只是本身就一知半解的人教给你的一部分，这只是真实JavaScript的影子。你还没真正理解JavaScript，但是如果你深入本系列书籍，你将会理解。读起来，我的朋友。JavaScript等着你。
 
-#总结
+# 总结
 ----
 JavaScript是令人惊叹的。学习它的一部分是容易的，但学习完整是比较困难的。当开发者们遭遇困惑，他们常常归咎于语言的本身，而不是自身理解的缺乏。这些书旨在修正这一点，会激起你对于这门语言极大的兴趣，而这些内容正是你应该深入去理解的。
 
