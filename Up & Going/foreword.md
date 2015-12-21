@@ -2,7 +2,7 @@
 [https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/foreword.md](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/foreword.md)
 
 # 前言
-----
+
 你最近学习的新东西是什么？
 
 可能是一门新语言，比如意大利语或者德语。或者可能是一个图形编辑器，比如Photoshop。或者是烹饪技术，木工艺，日常锻炼。我想让你记住你最终掌握它的那种感觉：类似灯泡点亮的那一刻。当一个事物从模糊不清变得像水晶般清晰，当你掌握了台锯的使用，或者理解了法语中的阴阳性名词的差别。感觉怎么样？非常棒，不是吗？
