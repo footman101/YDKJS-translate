@@ -14,16 +14,16 @@
 
 ## 值与类型
 
-As we asserted in Chapter 1, JavaScript has typed values, not typed variables. The following built-in types are available:
+正如我们在第一章中提到的，JavaScript的值是有类型的，但是变量没有类型。以下是几种JavaScript内置类型：
 
 * `string`
 * `number`
 * `boolean`
 * `null` and `undefined`
 * `object`
-* `symbol` (new to ES6)
+* `symbol` (ES6新类型)
 
-JavaScript provides a `typeof` operator that can examine a value and tell you what type it is:
+JavaScript提供了一个叫做`typeof`的操作符，它可以用来检查一个值的类型：
 
 ```js
 var a;
@@ -48,19 +48,19 @@ a = { b: "c" };
 typeof a;				// "object"
 ```
 
-The return value from the `typeof` operator is always one of six (seven as of ES6!) string values. That is, `typeof "abc"` returns `"string"`, not `string`.
+`typeof`操作符分人返回值是六种字符串（ES6中有七种）中的的一个。比如`typeof "abc"`返回`"string"`，而不是`string`.
 
-Notice how in this snippet the `a` variable holds every different type of value, and that despite appearances, `typeof a` is not asking for the "type of `a`", but rather for the "type of the value currently in `a`." Only values have types in JavaScript; variables are just simple containers for those values.
+注意在这段代码中，变量`a`装载了不同类型的值，因此尽管看起来`typeof a`是询问`a`的类型，但实际上是询问`a`当前装载的值的类型。在JavaScript中，只有值有类型；变量只是这些值的容器。
 
-`typeof null` is an interesting case, because it errantly returns `"object"`, when you'd expect it to return `"null"`.
+`typeof null`是一个有趣的情况，因为它错误地返回了`"object"`，实际上我们期望它返回`"null"`。
 
-**Warning:** This is a long-standing bug in JS, but one that is likely never going to be fixed. Too much code on the Web relies on the bug and thus fixing it would cause a lot more bugs!
+**警告：**这是在JS中一个长期存在的bug，但是这一个问题似乎将永远不会被修复。因为当前Web上有太多的代买依赖这个bug，修改这个bug会引发更多的bug。
 
-Also, note `a = undefined`. We're explicitly setting `a` to the `undefined` value, but that is behaviorally no different from a variable that has no value set yet, like with the `var a;` line at the top of the snippet. A variable can get to this "undefined" value state in several different ways, including functions that return no values and usage of the `void` operator.
+同时，注意`a = undefined`。我们显式地设置`a`为`undefined`，但是这同于一个变量没有被设置任何值，就像代码在一开始的`var a;`。一个变量有很多方法可以变成"undefined"，包括没有返回值的函数和使用`void`操作符。
 
-### Objects
+### 对象
 
-The `object` type refers to a compound value where you can set properties (named locations) that each hold their own values of any type. This is perhaps one of the most useful value types in all of JavaScript.
+`object`类型表示一组值的集合，这些值被称为对象的属性。它可能是JavaScript中最有用的类型了。
 
 ```js
 var obj = {
@@ -78,15 +78,15 @@ obj["b"];	// 42
 obj["c"];	// true
 ```
 
-It may be helpful to think of this `obj` value visually:
+`obj`的图形化表示如下图所示：
 
-<img src="fig4.png">
+[![](https://github.com/getify/You-Dont-Know-JS/raw/master/up%20&%20going/fig4.png)](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/fig4.png)
 
-Properties can either be accessed with *dot notation* (i.e., `obj.a`) or *bracket notation* (i.e., `obj["a"]`). Dot notation is shorter and generally easier to read, and is thus preferred when possible.
+访问属性的方式有两种，使用*点符号*（例如`obj.a`）或者使用*方括号符号*（例如`obj["a"]`）。点符号比较短小精悍，而且通常易于阅读，因此推荐使用这种方式。
 
-Bracket notation is useful if you have a property name that has special characters in it, like `obj["hello world!"]` -- such properties are often referred to as *keys* when accessed via bracket notation. The `[ ]` notation requires either a variable (explained next) or a `string` *literal* (which needs to be wrapped in `" .. "` or `' .. '`).
+方括号符号在属性名中有特殊符号时比较有用，比如`obj["hello world!"]` -- 属性在使用方括号表示时，通常指的是*键（keys）*。`[ ]`符号内部需要一个变量（稍后解释）或者一个`string`*字面量*（需要用`" .. "`或者`' .. '`包裹）。
 
-Of course, bracket notation is also useful if you want to access a property/key but the name is stored in another variable, such as:
+当然，方括号符号在你访问属性的名称存储在另外一个变量中时同样有用，例如：
 
 ```js
 var obj = {
@@ -100,9 +100,9 @@ obj[b];			// "hello world"
 obj["b"];		// 42
 ```
 
-**Note:** For more information on JavaScript `object`s, see the *this & Object Prototypes* title of this series, specifically Chapter 3.
+**注意：**更多关于`object`的信息，参考本系列书的*this和对象原型*，特别是其中的第三章。
 
-There are a couple of other value types that you will commonly interact with in JavaScript programs: *array* and *function*. But rather than being proper built-in types, these should be thought of more like subtypes -- specialized versions of the `object` type.
+还有另外一些类型你在JavaScript中会经常使用：*array*和*function*。虽然它们也是通用的内置类型，但是它们应该被视为子类型 -- `object`类型的特殊版本。
 
 #### Arrays
 
