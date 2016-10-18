@@ -9,7 +9,7 @@
 
 但是JavaScript作为一门语言，人们无休止的评论它，一方面由于它的后遗症，更重要的是它的设计哲学。正如Brendan Eich曾经说的，从它的名字可以看出，相比于成熟的大哥哥Java,它只是一个不愿说话的小弟弟。但是它的名字只不过是市场营销的一个意外。这两门语言有很大的不同，"JavaScript"相比于"Java"正如"Carnival"相比于"Car".
 
-由于JavaScript从一些语言借鉴了很多概念和语法，包括(实在不会翻译，请谅解！proud C-style procedural roots as well as subtle, less obvious Scheme/Lisp-style functional roots)。对于绝大多数开发者甚至没有编程经验的的人，JavaScript都非常和蔼可亲。在早期学习中，JavaScript版的"Hello World"是如此的简单，让人可以很容易上手。
+由于JavaScript从一些语言借鉴了很多概念和语法，包括C语言程序根以及微妙的，不太明显的Scheme / Lisp风格的函数根。对于绝大多数开发者甚至没有编程经验的的人，JavaScript都非常和蔼可亲。在早期学习中，JavaScript版的"Hello World"是如此的简单，让人可以很容易上手。
 
 虽然JavaScript可能是启动和运行的最简单的语言之一，但是它的一些怪癖使得它并不如一些语言一样容易精通。就像C或者C++语言一样，用JavaScript写一个完整的程序完整的产品需要有非常深入的知识，只是蜻蜓点水是不行的。
 
