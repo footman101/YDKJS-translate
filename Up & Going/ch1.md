@@ -1,5 +1,6 @@
 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch1.md](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch1.md)
 
+# 你不知道的JS: 起步
 # 第一章：进入编程
 
 欢迎来到*You Don't Know JS* (*YDKJS*) 系列

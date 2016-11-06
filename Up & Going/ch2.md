@@ -1,5 +1,6 @@
 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch2.md](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch2.md)
 
+# 你不知道的JS: 起步
 # 第二章: 进入JavaScript
 
 在前面的章节中，我介绍了基本的编程部件，比如变量，循环，条件和函数。当然，所有的代码都是用JavaScript写的。但是在这一章里，我们准备聚焦JavaScript中一些比较特殊的东西，来成为一位真正的JavaScript开发者。
@@ -604,7 +605,7 @@ var x = function bar(){
 
 分配给`foo`变量的第一个函数表达式被称为*匿名函数*，因为它没有`name`。
 
-第二个函数表达式是*具名的*（`bar`），即使它的引用也被赋给`x`变量。虽然*匿名函数表达式*仍然非常常见，*命名函数表达式*通常是更优的选择。
+第二个函数表达式是*具名的*（`bar`），即使它的引用也被赋给`x`变量。虽然*匿名函数表达式*仍然非常常见，但是*命名函数表达式*通常是更优的选择。
 
 更多信息请参见本系列书的*作用域和闭包*主题。
 
@@ -621,11 +622,11 @@ There's another way to execute a function expression, which is typically referre
 // "Hello!"
 ```
 
-The outer `( .. )` that surrounds the `(function IIFE(){ .. })` function expression is just a nuance of JS grammar needed to prevent it from being treated as a normal function declaration.
+围绕函数表达式`(function IIFE(){ .. })`的外部`（..）`只是一个细微的JS语法，用来防止它被当作一个正常的函数声明。
 
-The final `()` on the end of the expression -- the `})();` line -- is what actually executes the function expression referenced immediately before it.
+在表达式末尾的最后一个`()` -- `})();`这行 -- 代表了实际执行紧跟在它之前的函数表达式。
 
-That may seem strange, but it's not as foreign as first glance. Consider the similarities between `foo` and `IIFE` here:
+这可能看起来很奇怪，但它并不是特别。在这里考虑`foo`和`IIFE`之间的相似之处：
 
 ```js
 function foo() { .. }
@@ -639,9 +640,9 @@ foo();
 (function IIFE(){ .. })();
 ```
 
-As you can see, listing the `(function IIFE(){ .. })` before its executing `()` is essentially the same as including `foo` before its executing `()`; in both cases, the function reference is executed with `()` immediately after it.
+正如你可以看到的，在执行`()`之前列出`（function IIFE（）{..}）`基本上与在执行`()`之前的`foo`相同; 在这两种情况下，函数的引用都是在紧跟其后的`()`中执行。
 
-Because an IIFE is just a function, and functions create variable *scope*, using an IIFE in this fashion is often used to declare variables that won't affect the surrounding code outside the IIFE:
+由于立即调用函数表达式只是一个函数，也会创造出*作用域*，使用这种形式可以在作用域内部定义一些变量，这些变量不会影响作用域的外部。
 
 ```js
 var a = 42;
@@ -654,7 +655,7 @@ var a = 42;
 console.log( a );		// 42
 ```
 
-IIFEs can also have return values:
+立即调用函数表达式也可以返回值:
 
 ```js
 var x = (function IIFE(){
@@ -664,15 +665,15 @@ var x = (function IIFE(){
 x;	// 42
 ```
 
-The `42` value gets `return`ed from the `IIFE`-named function being executed, and is then assigned to `x`.
+命名函数`IIFE`执行并返回了值`42`，这个值被赋予给了`x`。
 
 ### 闭包
 
-*Closure* is one of the most important, and often least understood, concepts in JavaScript. I won't cover it in deep detail here, and instead refer you to the *Scope & Closures* title of this series. But I want to say a few things about it so you understand the general concept. It will be one of the most important techniques in your JS skillset.
+*闭包*是JavaScript中最重要的，通常也是不容易被理解的概念之一。 我不会在这里详细地介绍它，你可以参考本系列书的*作用域和闭包*主题。但我想说一些关于它，让你理解它的一般概念。它将会成为你的JS技能树中最重要的技术之一。
 
-You can think of closure as a way to "remember" and continue to access a function's scope (its variables) even once the function has finished running.
+你可以认为闭包是“记住”并可以访问函数作用域（它的变量）的一种方式，甚至是在函数执行完毕后。
 
-Consider:
+考虑:
 
 ```js
 function makeAdder(x) {
@@ -688,7 +689,7 @@ function makeAdder(x) {
 }
 ```
 
-The reference to the inner `add(..)` function that gets returned with each call to the outer `makeAdder(..)` is able to remember whatever `x` value was passed in to `makeAdder(..)`. Now, let's use `makeAdder(..)`:
+内部函数`add(..)`的引用被外层函数`makeAdder(..)`返回，这个引用记住了外层`makeAdder(..)`函数的参数`x`。现在，我们来使用`makeAdder(..)`：
 
 ```js
 // `plusOne` gets a reference to the inner `add(..)`
@@ -707,22 +708,22 @@ plusOne( 41 );		// 42 <-- 1 + 41
 plusTen( 13 );		// 23 <-- 10 + 13
 ```
 
-More on how this code works:
+更多解释:
 
-1. When we call `makeAdder(1)`, we get back a reference to its inner `add(..)` that remembers `x` as `1`. We call this function reference `plusOne(..)`.
-2. When we call `makeAdder(10)`, we get back another reference to its inner `add(..)` that remembers `x` as `10`. We call this function reference `plusTen(..)`.
-3. When we call `plusOne(3)`, it adds `3` (its inner `y`) to the `1` (remembered by `x`), and we get `4` as the result.
-4. When we call `plusTen(13)`, it adds `13` (its inner `y`) to the `10` (remembered by `x`), and we get `23` as the result.
+1. 我们调用`makeAdder(1)`后，得到它内部`add(..)`函数的引用，并且记住了`x`的值为`1`。我们将这个函数引用称为`plusOne(..)`。
+2. 我们调用`makeAdder(10)`后，得到它内部`add(..)`函数的引用，并且记住了`x`的值为`10`。我们将这个函数引用称为`plusTen(..)`。
+3. 我们调用`plusOne(3)`，它把`3`（内部的`y`）增加`1`（被记住的`x`），我们最终得到结果为`4`。
+4. 我们调用`plusTen(13)`，它把`13`（内部的`y`）增加`10`（被记住的`x`），我们最终得到结果为`23`。
 
-Don't worry if this seems strange and confusing at first -- it can be! It'll take lots of practice to understand it fully.
+如果最初这些看起来似乎奇怪和混乱，不要担心 -- 它就是会这样！ 这种机制需要大量的实践来充分理解。
 
-But trust me, once you do, it's one of the most powerful and useful techniques in all of programming. It's definitely worth the effort to let your brain simmer on closures for a bit. In the next section, we'll get a little more practice with closure.
+但相信我，一旦你这样做，它是编程中最强大和有用的技术之一。让你的大脑一点一点理解它，你的努力绝对值得。 在下一节中，我们将进一步练习闭包。
 
-#### Modules
+#### 模块
 
-The most common usage of closure in JavaScript is the module pattern. Modules let you define private implementation details (variables, functions) that are hidden from the outside world, as well as a public API that *is* accessible from the outside.
+JavaScript中闭包最常见的用法是模块模式。模块允许你定义从外部无法直接访问的私有的实现细节（变量，函数），以及可从外部访问的公共API。
 
-Consider:
+考虑:
 
 ```js
 function User(){
@@ -748,35 +749,35 @@ var fred = User();
 fred.login( "fred", "12Battery34!" );
 ```
 
-The `User()` function serves as an outer scope that holds the variables `username` and `password`, as well as the inner `doLogin()` function; these are all private inner details of this `User` module that cannot be accessed from the outside world.
+`User()`作为外层作用域，包含`username`和`password`变量，以及内部函数`doLogin()`；它们都是`User`模块的内部实现细节，不能直接被外部世界访问。
 
-**Warning:** We are not calling `new User()` here, on purpose, despite the fact that probably seems more common to most readers. `User()` is just a function, not a class to be instantiated, so it's just called normally. Using `new` would be inappropriate and actually waste resources.
+**警告：** 我们在这里故意没有调用`new Use()`，虽然事实上这种形式对于很多读者更常见。 `User()`只是一个函数，而不是一个要实例化的类，所以它只是被正常调用。使用`new`是不合适的，并且事实更浪费资源。
 
-Executing `User()` creates an *instance* of the `User` module -- a whole new scope is created, and thus a whole new copy of each of these inner variables/functions. We assign this instance to `fred`. If we run `User()` again, we'd get a new instance entirely separate from `fred`.
+执行`User()`创建了一个`User`模块的*实例* -- 一个新的作用域被创建了，于是全部这些内部变量和函数被复制了一份。我们将这个实例赋值给`fred`。如果我们再执行`User()`一遍，我们会得到一个和`fred`完全不同的实例。
 
-The inner `doLogin()` function has a closure over `username` and `password`, meaning it will retain its access to them even after the `User()` function finishes running.
+内部的`doLogin()`函数对`username`和`password`有一个闭包，这意味着即使`User()`函数执行完毕后，它仍然可以访问它们。
 
-`publicAPI` is an object with one property/method on it, `login`, which is a reference to the inner `doLogin()` function. When we return `publicAPI` from `User()`, it becomes the instance we call `fred`.
+`publicAPI`是一个对象，它有一个属性/方法，`login`，它是一个内部函数`doLogin()`的引用。当`User()`返回时，`publicAPI`变成了我们称为`fred`的实例。
 
-At this point, the outer `User()` function has finished executing. Normally, you'd think the inner variables like `username` and `password` have gone away. But here they have not, because there's a closure in the `login()` function keeping them alive.
+此时，外部的`User()`函数已经执行完毕。 通常，你会认为像`username`和`password`这样的内部变量已经消失了。但是在这里，它们并没有，因为`login()`函数有一个闭包，保证了它们没有被销毁。
 
-That's why we can call `fred.login(..)` -- the same as calling the inner `doLogin(..)` -- and it can still access `username` and `password` inner variables.
+这就是为什么我们调用`fred.login(..)`时 -- 和调用内部函数`doLogin(..)`时一样，仍然可以访问内部变量`username`和`password`。
 
-There's a good chance that with just this brief glimpse at closure and the module pattern, some of it is still a bit confusing. That's OK! It takes some work to wrap your brain around it.
+这是一个很好的机会，初试闭包和模块模式，其中有些东西仍然比较混乱。没关系！你的大脑要完全消化它尚需时日。
 
-From here, go read the *Scope & Closures* title of this series for a much more in-depth exploration.
+从这里开始，继续阅读本系列书的*作用域和闭包*主题，进行更深入的探索。
 
-## `this` Identifier
+## `this`标识符
 
-Another very commonly misunderstood concept in JavaScript is the `this` identifier. Again, there's a couple of chapters on it in the *this & Object Prototypes* title of this series, so here we'll just briefly introduce the concept.
+在JavaScript中另一个常常被误解的概念是`this`标识符。在这个系列书的*this和对象原型*主题中有几个章节会详细讲解，在这里我们将简要介绍这个概念。
 
-While it may often seem that `this` is related to "object-oriented patterns," in JS `this` is a different mechanism.
+虽然`this`可能经常与『面向对象模式』相关，但在JS中，`this`是一个不同的机制。
 
-If a function has a `this` reference inside it, that `this` reference usually points to an `object`. But which `object` it points to depends on how the function was called.
+如果一个函数中有`this`引用，这个`this`引用通常指向一个`object`。但是这个`object`究竟是什么取决于函数的调用方式。
 
-It's important to realize that `this` *does not* refer to the function itself, as is the most common misconception.
+很重要的一点是，`this`*不是*指向这个函数本身，这是最常见的误解。
 
-Here's a quick illustration:
+这里有一个快速说明：
 
 ```js
 function foo() {
@@ -802,26 +803,26 @@ foo.call( obj2 );	// "obj2"
 new foo();			// undefined
 ```
 
-There are four rules for how `this` gets set, and they're shown in those last four lines of that snippet.
+这个代码段的最后四行展示了`this`被设置的四种情况
 
-1. `foo()` ends up setting `this` to the global object in non-strict mode -- in strict mode, `this` would be `undefined` and you'd get an error in accessing the `bar` property -- so `"global"` is the value found for `this.bar`.
-2. `obj1.foo()` sets `this` to the `obj1` object.
-3. `foo.call(obj2)` sets `this` to the `obj2` object.
-4. `new foo()` sets `this` to a brand new empty object.
+1. `foo()`中的`this`在非严格模式下是全局对象 -- 在严格模式下，`this`会变成`undefined`，当访问`bar`属性时会报错 -- 因此`"global"`是`this`的值。
+2. `obj1.foo()`中的`this`是`obj1`。
+3. `foo.call(obj2)`中的`this`是`obj2`。
+4. `new foo()`中的`this`是一个新的空对象。
 
-Bottom line: to understand what `this` points to, you have to examine how the function in question was called. It will be one of those four ways just shown, and that will then answer what `this` is.
+底线：要了解`this`指向什么，你必须明白函数究竟是如何调用的。调用方式一定是刚才展示的四种方式之一，然后你就可以回答`this`是什么了。
 
-**Note:** For more information about `this`, see Chapters 1 and 2 of the *this & Object Prototypes* title of this series.
+**注意：** 有关`this`的更多信息，请参阅本系列书的*this与对象原型*主题的第1章和第2章。
 
-## Prototypes
+## 原型
 
-The prototype mechanism in JavaScript is quite complicated. We will only glance at it here. You will want to spend plenty of time reviewing Chapters 4-6 of the *this & Object Prototypes* title of this series for all the details.
+JavaScript中的原型机制是非常复杂的。我们这里只是简单介绍看一下。你要想了解全部细节，需要花费大量的时间复习本系列书的*this和对象原型*的4-6章。
 
-When you reference a property on an object, if that property doesn't exist, JavaScript will automatically use that object's internal prototype reference to find another object to look for the property on. You could think of this almost as a fallback if the property is missing.
+当你访问一个对象的某个属性时，如果这个属性不存在,JavaScript会自动在对象的内部原型对象上继续查找。你可以认为这是一种在属性缺失时的后备机制。
 
-The internal prototype reference linkage from one object to its fallback happens at the time the object is created. The simplest way to illustrate it is with a built-in utility called `Object.create(..)`.
+对象与内部原型对象的连接关系发生在对象创建时，最简单的实现方式是使用内置的`Object.create(..)`方法。
 
-Consider:
+考虑:
 
 ```js
 var foo = {
@@ -837,35 +838,35 @@ bar.b;		// "hello world"
 bar.a;		// 42 <-- delegated to `foo`
 ```
 
-It may help to visualize the `foo` and `bar` objects and their relationship:
+`foo`和`bar`对象以及它们之间的关系图像化说明如下：
 
-<img src="fig6.png">
+[![](https://github.com/getify/You-Dont-Know-JS/raw/master/up%20&%20going/fig6.png)](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/fig6.png)
 
-The `a` property doesn't actually exist on the `bar` object, but because `bar` is prototype-linked to `foo`, JavaScript automatically falls back to looking for `a` on the `foo` object, where it's found.
+`a`属性并不是真正存在于`bar`对象上，但是由于`bar`通过原型链连接到`foo`，JavaScript自动在`foo`对象上查找`a`，并且最终可以找到。
 
-This linkage may seem like a strange feature of the language. The most common way this feature is used -- and I would argue, abused -- is to try to emulate/fake a "class" mechanism with "inheritance."
+原型链看起来是一种古怪的语言特性。使用这个特性的最常见的方法 -- 我认为是滥用 -- 是试图用『继承』来模拟/伪造『类』机制。
 
-But a more natural way of applying prototypes is a pattern called "behavior delegation," where you intentionally design your linked objects to be able to *delegate* from one to the other for parts of the needed behavior.
+但是一种更自然的应用原型的方式是『行为委托』模式，在这种模式下，你可以有意识地设计你的链接对象，以便把一部分需要的行为『委托』给另外的对象。
 
-**Note:** For more information about prototypes and behavior delegation, see Chapters 4-6 of the *this & Object Prototypes* title of this series.
+**注意：** 更多关于原型和行为委托的信息，请参看本系列书的*this和对象原型*的4-6章.
 
-## Old & New
+## 旧与新
 
-Some of the JS features we've already covered, and certainly many of the features covered in the rest of this series, are newer additions and will not necessarily be available in older browsers. In fact, some of the newest features in the specification aren't even implemented in any stable browsers yet.
+我们已经介绍的一些JS特性，以及本系列其余部分中介绍的许多特性，都是较新的特性，并不一定在旧版本的浏览器中可用。事实上，规范中的一些最新功能甚至还没有在任何稳定的浏览器中实现。
 
-So, what do you do with the new stuff? Do you just have to wait around for years or decades for all the old browsers to fade into obscurity?
+那么，这么多新的东西你要怎么做？你只是等待十年或几十年，等所有的旧浏览器数退出历史舞台？
 
-That's how many people think about the situation, but it's really not a healthy approach to JS.
+这是很多的想法，但对于JS来说它真的不是一个好的想法。
 
-There are two main techniques you can use to "bring" the newer JavaScript stuff to the older browsers: polyfilling and transpiling.
+有两种主要的技术可以在旧的浏览器上使用新的JavaScript特性：polyfilling和transpiling（后面两节会解释这两个词）。
 
 ### Polyfilling
 
-The word "polyfill" is an invented term (by Remy Sharp) (https://remysharp.com/2010/10/08/what-is-a-polyfill) used to refer to taking the definition of a newer feature and producing a piece of code that's equivalent to the behavior, but is able to run in older JS environments.
+词语『polyfill』是新发明的术语（由Remy Sharp提供）（https://remysharp.com/2010/10/08/what-is-a-polyfill），用于指代采用较新特性的定义，写出一段等价的代码，使之能够在旧的JS环境中运行。
 
-For example, ES6 defines a utility called `Number.isNaN(..)` to provide an accurate non-buggy check for `NaN` values, deprecating the original `isNaN(..)` utility. But it's easy to polyfill that utility so that you can start using it in your code regardless of whether the end user is in an ES6 browser or not.
+例如，ES6中定义了`Number.isNaN(..)`函数，用于精准地检查是否是`NaN`值，废弃了原有的`isNaN(..)`函数。但是很容易填充这个新的函数，以便您可以开始在代码中使用它，无论最终用户是否在ES6浏览器。
 
-Consider:
+考虑：
 
 ```js
 if (!Number.isNaN) {
@@ -875,31 +876,31 @@ if (!Number.isNaN) {
 }
 ```
 
-The `if` statement guards against applying the polyfill definition in ES6 browsers where it will already exist. If it's not already present, we define `Number.isNaN(..)`.
+`if`语句保证了在存在`Number.isNaN(..)`函数的ES6浏览器中不使用填充定义，如果浏览器中不存在时，我们才定义`Number.isNaN(..)`。
 
-**Note:** The check we do here takes advantage of a quirk with `NaN` values, which is that they're the only value in the whole language that is not equal to itself. So the `NaN` value is the only one that would make `x !== x` be `true`.
+**注意：** 在上述我们定义的检查中，我们利用了`NaN`的一个怪癖，即它是真个语言中唯一自身不等于自身的值。因此`NaN`是唯一一个能够保证`x !== x`为`true`的值。
 
-Not all new features are fully polyfillable. Sometimes most of the behavior can be polyfilled, but there are still small deviations. You should be really, really careful in implementing a polyfill yourself, to make sure you are adhering to the specification as strictly as possible.
+并不是所有的新特性可以被完全填充。有时大多数行为可以被填充，但仍有小的偏差。你应该非常小心自己实现的polyfill，确保严格遵守规范。
 
-Or better yet, use an already vetted set of polyfills that you can trust, such as those provided by ES5-Shim (https://github.com/es-shims/es5-shim) and ES6-Shim (https://github.com/es-shims/es6-shim).
+或者更好的是，使用已经经过检验的，您可以信任的一组polyfills，如ES5-Shim（https://github.com/es-shims/es5-shim）和ES6-Shim（https://github.com/es-shims/es6-shim）。
 
 ### Transpiling
 
-There's no way to polyfill new syntax that has been added to the language. The new syntax would throw an error in the old JS engine as unrecognized/invalid.
+对于语言的新语法，是没有办法polyfill的。新的语法将在旧的JS引擎中抛出无法识别/无效错误。
 
-So the better option is to use a tool that converts your newer code into older code equivalents. This process is commonly called "transpiling," a term for transforming + compiling.
+因此一个更好的选择是，使用工具将新语法转换为旧的代码实现。这个过程通常被称为『transpiling』，是转换（transforming）和编译（compiling）的合体。
 
-Essentially, your source code is authored in the new syntax form, but what you deploy to the browser is the transpiled code in old syntax form. You typically insert the transpiler into your build process, similar to your code linter or your minifier.
+实质上，您的源代码是以新的语法写的，但最终部署到浏览器的是以旧语法形式转换后的代码。转换过程通常实在构建过程中，类似于代码检查或代码压缩。
 
-You might wonder why you'd go to the trouble to write new syntax only to have it transpiled away to older code -- why not just write the older code directly?
+你可能想知道为什么要麻烦来写新的语法然后转换为老的代码 -- 为什么不直接写老代码？
 
-There are several important reasons you should care about transpiling:
+这里有几个重要的原因，关于为什么你要关注transpiling：
 
-* The new syntax added to the language is designed to make your code more readable and maintainable. The older equivalents are often much more convoluted. You should prefer writing newer and cleaner syntax, not only for yourself but for all other members of the development team.
-* If you transpile only for older browsers, but serve the new syntax to the newest browsers, you get to take advantage of browser performance optimizations with the new syntax. This also lets browser makers have more real-world code to test their implementations and optimizations on.
-* Using the new syntax earlier allows it to be tested more robustly in the real world, which provides earlier feedback to the JavaScript committee (TC39). If issues are found early enough, they can be changed/fixed before those language design mistakes become permanent.
+* 新加入语言的语法在设计之初，是为了让你的代码更加具有可读性和可维护性。老代码的等价物通常比较错综复杂。你应该倾向于写更新更干净的语法，不仅仅为了你自己，更是为了开发组的其他成员。
+* 如果仅仅为了旧的浏览器来transpile，而在新的浏览器上直接使用新的语法，那么你就可以利用新浏览器针对新语法的优化来提高代码性能。同时，浏览器制造者也可以获得更多的代码来测试他们的新语法实现和优化。
+* 更早地使用新语法，可以使这些代码经过更加可靠的测试，这为JavaScript委员会（TC39）提供了早期反馈。 如果问题足够早，可以在这些语言设计错误定型前进行更改/修改。
 
-Here's a quick example of transpiling. ES6 adds a feature called "default parameter values." It looks like this:
+这里有个transpiling的例子。ES6增加了称为『默认参数值』,它看起来是这样的：
 
 ```js
 function foo(a = 2) {
@@ -910,7 +911,7 @@ foo();		// 2
 foo( 42 );	// 42
 ```
 
-Simple, right? Helpful, too! But it's new syntax that's invalid in pre-ES6 engines. So what will a transpiler do with that code to make it run in older environments?
+很简单，是吗？同时也非常有用！但是它在ES6前的语言引擎中是非法的。那么转换器做了什么可以让它在旧浏览器中运行？
 
 ```js
 function foo() {
@@ -919,47 +920,48 @@ function foo() {
 }
 ```
 
-As you can see, it checks to see if the `arguments[0]` value is `void 0` (aka `undefined`), and if so provides the `2` default value; otherwise, it assigns whatever was passed.
+正如你所看到的，首先检查`arguments[0]`是否是`void 0`（即`undefined`），如果是的话，将`2`作为默认值赋给它；否则，把传进来的参数赋给它。
 
-In addition to being able to now use the nicer syntax even in older browsers, looking at the transpiled code actually explains the intended behavior more clearly.
+除了能够在旧浏览器使用新语法外，查看转换后的代码能够是我们对于语法的预期行为更加清楚。
 
-You may not have realized just from looking at the ES6 version that `undefined` is the only value that can't get explicitly passed in for a default-value parameter, but the transpiled code makes that much more clear.
+你可能没有注意到，在ES6中`undefined`是唯一不能显式传递给默认参数的值，但是查看转换后的代码，你就会清楚这一点。
 
-The last important detail to emphasize about transpilers is that they should now be thought of as a standard part of the JS development ecosystem and process. JS is going to continue to evolve, much more quickly than before, so every few months new syntax and new features will be added.
+需要强调的最后一个转换器重要细节是，转化器应该被认为是JS开发生态系统和过程的一个标准部分。JS将继续越来越快地发展，因此每几个月就会添加新语法和新特性。
 
-If you use a transpiler by default, you'll always be able to make that switch to newer syntax whenever you find it useful, rather than always waiting for years for today's browsers to phase out.
+如果你默认使用转换器，无论何时你觉得新语法有用时就可以使用它，而不是等待现在旧的浏览器慢慢过时，这可能需要好多年。
 
-There are quite a few great transpilers for you to choose from. Here are some good options at the time of this writing:
+这里有很多非常好的转换器供你选择。此时此刻有以下好的选择：
 
-* Babel (https://babeljs.io) (formerly 6to5): Transpiles ES6+ into ES5
-* Traceur (https://github.com/google/traceur-compiler): Transpiles ES6, ES7, and beyond into ES5
+* Babel (https://babeljs.io) (以前的6to5): 转换ES6+至ES5
+* Traceur (https://github.com/google/traceur-compiler): 转换ES6，ES7及之外至ES5
 
-## Non-JavaScript
+## 非JavaScript
 
-So far, the only things we've covered are in the JS language itself. The reality is that most JS is written to run in and interact with environments like browsers. A good chunk of the stuff that you write in your code is, strictly speaking, not directly controlled by JavaScript. That probably sounds a little strange.
+到目前为止，我们所覆盖的唯一的东西是在JS语言本身。现实是大多数JS是在浏览器等环境中运行和交互。在你的代码中写的很多东西，严格来说，不是由JavaScript直接控制。这可能听起来有点奇怪。
 
-The most common non-JavaScript JavaScript you'll encounter is the DOM API. For example:
+您会遇到的最常见的非JavaScript的JavaScript是DOM API。例如：
 
 ```js
 var el = document.getElementById( "foo" );
 ```
 
-The `document` variable exists as a global variable when your code is running in a browser. It's not provided by the JS engine, nor is it particularly controlled by the JavaScript specification. It takes the form of something that looks an awful lot like a normal JS `object`, but it's not really exactly that. It's a special `object,` often called a "host object."
+`document`变量是浏览器中的一个全局变量。它不是由JS引擎提供的，也不受JavaScript规范控制。它的形式看起来像一个普通的JS对象，但它不是真的那样。它是一个特殊的`object`，通常称为『宿主对象』。
 
-Moreover, the `getElementById(..)` method on `document` looks like a normal JS function, but it's just a thinly exposed interface to a built-in method provided by the DOM from your browser. In some (newer-generation) browsers, this layer may also be in JS, but traditionally the DOM and its behavior is implemented in something more like C/C++.
+此外，`document`上的`getElementById(..)`方法看起来是一个JS函数，但是它仅仅是一个浏览器DOM内置方法的接口。在有些（新一代）浏览器中，这一层函数有可能也是由JS实现的，但是传统上，DOM以及它的行为函数更多由C/C++实现。
 
-Another example is with input/output (I/O).
+另一个例子是关于输入/输出（I/O）。
 
-Everyone's favorite `alert(..)` pops up a message box in the user's browser window. `alert(..)` is provided to your JS program by the browser, not by the JS engine itself. The call you make sends the message to the browser internals and it handles drawing and displaying the message box.
+每个人都喜爱的`alert(..)`函数会在用户浏览器窗口弹出一个消息盒子。浏览器的JS程序提供了`alert(..)`方法，而不是JS引擎本身。你调用这个函数时，会发送消息给浏览器内部，浏览器会绘制和显示这个消息盒子。
 
-The same goes with `console.log(..)`; your browser provides such mechanisms and hooks them up to the developer tools.
+`console.log(..)`也是同样的道理；你的浏览器提供了这种机制，并将它们hook（	
+钩）到开发者工具。
 
-This book, and this whole series, focuses on JavaScript the language. That's why you don't see any substantial coverage of these non-JavaScript JavaScript mechanisms. Nevertheless, you need to be aware of them, as they'll be in every JS program you write!
+这本书，以及整个系列书，聚焦于JavaScript语言本身。这就是为什么你看不到这些非JavaScript的JavaScript的大量介绍。然而，你需要知道它们，因为它们会在你写的每个JS程序中！
 
-## Review
+## 复习
 
-The first step to learning JavaScript's flavor of programming is to get a basic understanding of its core mechanisms like values, types, function closures, `this`, and prototypes.
+学习JavaScript风格编程的第一步是学习其核心机制（如值，类型，函数闭包，`this`和原型）的基本内容。
 
-Of course, each of these topics deserves much greater coverage than you've seen here, but that's why they have chapters and books dedicated to them throughout the rest of this series. After you feel pretty comfortable with the concepts and code samples in this chapter, the rest of the series awaits you to really dig in and get to know the language deeply.
+当然，这里你所看到关于这些主题的介绍是远远不够的，这就是为什么本系列还有其他章节和其他书来介绍它们。一旦你掌握了本章所讲的概念了代码实例，本系列书的其他部分等待你进一步去挖掘，你将会更深入地理解这门语言。
 
-The final chapter of this book will briefly summarize each of the other titles in the series and the other concepts they cover besides what we've already explored.
+本书的最后一章将会简单总结本系列其他书的主题以及我们已经探讨过之外的一些其他概念。

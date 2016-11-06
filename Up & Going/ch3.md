@@ -1,104 +1,106 @@
-# You Don't Know JS: Up & Going
-# Chapter 3: Into YDKJS
+原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch3.md](https://github.com/getify/You-Dont-Know-JS/blob/master/up%20&%20going/ch3.md)
 
-What is this series all about? Put simply, it's about taking seriously the task of learning *all parts of JavaScript*, not just some subset of the language that someone called "the good parts," and not just whatever minimal amount you need to get your job done at work.
+# 你不知道的JS: 起步
+# 第三章: 进入你不知道的JS
 
-Serious developers in other languages expect to put in the effort to learn most or all of the language(s) they primarily write in, but JS developers seem to stand out from the crowd in the sense of typically not learning very much of the language. This is not a good thing, and it's not something we should continue to allow to be the norm.
+我们这个系列主要讲了什么内容呢？简单地说，它讲了学习*JavaScript的方方面面*，而不仅仅是某些人所谓的语言“好的部分”，也不仅仅是完成工作所需的必要部分。
 
-The *You Don't Know JS* (*YDKJS*) series stands in stark contrast to the typical approaches to learning JS, and is unlike almost any other JS books you will read. It challenges you to go beyond your comfort zone and to ask the deeper "why" questions for every single behavior you encounter. Are you up for that challenge?
+其他语言的严肃的开发人员期望努力学习他们主要语言的全部，但是JS开发人员似乎有些与众不同，通常不会很深入学习自己的语言。这不是一件好事，这不是我们应该继续做的事情。
 
-I'm going to use this final chapter to briefly summarize what to expect from the rest of the books in the series, and how to most effectively go about building a foundation of JS learning on top of *YDKJS*.
+*你不知道的JS*(*YDKJS*)系列与典型的学习JS的方法形成鲜明对比，并且几乎与你读的任何其他JS书不同。它挑战你的舒适区，并要求你深入每一个语言行为的“为什么”。你愿意接受这个挑战吗？
 
-## Scope & Closures
+我将使用这个最后一章简要总结一下系列中其他书的内容，以及如何最有效地建立一个基于*YDKJS*的JS学习基础。
 
-Perhaps one of the most fundamental things you'll need to quickly come to terms with is how scoping of variables really works in JavaScript. It's not enough to have anecdotal fuzzy *beliefs* about scope.
+## 作用域与闭包
 
-The *Scope & Closures* title starts by debunking the common misconception that JS is an "interpreted language" and therefore not compiled. Nope.
+你可能需要快速掌握的一个最基本的概念是，JavaScript作用域中的变量究竟怎样工作。关于作用域模糊不清地*理解*是远远不够的。
 
-The JS engine compiles your code right before (and sometimes during!) execution. So we use some deeper understanding of the compiler's approach to our code to understand how it finds and deals with variable and function declarations. Along the way, we see the typical metaphor for JS variable scope management, "Hoisting."
+*作用域与闭包*在一开始就驳斥一个比较普遍的误解，即JS是一个『解释型语言』，因此代码不会编译。这是不对的。
 
-This critical understanding of "lexical scope" is what we then base our exploration of closure on for the last chapter of the book. Closure is perhaps the single most important concept in all of JS, but if you haven't first grasped firmly how scope works, closure will likely remain beyond your grasp.
+在代码执行前（有时是执行时！），JS引擎会编译你的代码。因此，我们更深入地了解编译器处理我们代码的方法，了解它如何发现和处理变量和函数的声明。通过这种方法，我们看到了JS变量作用域管理的一个典型隐喻，『作用域提升』。
 
-One important application of closure is the module pattern, as we briefly introduced in this book in Chapter 2. The module pattern is perhaps the most prevalent code organization pattern in all of JavaScript; deep understanding of it should be one of your highest priorities.
+在本书的最后一章，我们会探索闭包来深入理解『词法作用域』。闭包可能是JS中最重要的单个概念，但是如果没有作用域的知识来铺垫，你可能不会理解闭包太深。
 
-## this & Object Prototypes
+正如我们在第二章讲的，闭包的一个重要应用就是模块模式。模块模式几乎是JavaScript中最常用的代码组织方式；对它的深刻理解应该是你的最高优先事项之一。
 
-Perhaps one of the most widespread and persistent mistruths about JavaScript is that the `this` keyword refers to the function it appears in. Terribly mistaken.
+## this与对象原型
 
-The `this` keyword is dynamically bound based on how the function in question is executed, and it turns out there are four simple rules to understand and fully determine `this` binding.
+也许对JavaScript最广泛和持久的错误之一是，`this`关键字指的是它出现的函数。这非常错误。
 
-Closely related to the `this` keyword is the object prototype mechanism, which is a look-up chain for properties, similar to how lexical scope variables are found. But wrapped up in the prototypes is the other huge miscue about JS: the idea of emulating (fake) classes and (so-called "prototypal") inheritance.
+`this`关键字是动态绑定的，跟所在函数究竟如何执行有关，有四条简单的规则来理解和确定`this`的绑定关系。
 
-Unfortunately, the desire to bring class and inheritance design pattern thinking to JavaScript is just about the worst thing you could try to do, because while the syntax may trick you into thinking there's something like classes present, in fact the prototype mechanism is fundamentally opposite in its behavior.
+对象原型机制，即向上查看属性的链条，跟`this`关键词关系密切，有点像词法作用域变量的查找过程。但是原型中包含着另一个关于JS的大错误：仿真（假）类和（所谓的“原型”）继承的想法。
 
-What's at issue is whether it's better to ignore the mismatch and pretend that what you're implementing is "inheritance," or whether it's more appropriate to learn and embrace how the object prototype system actually works. The latter is more appropriately named "behavior delegation."
+不幸的是，将类和继承的设计模式思维带入JavaScript是一件糟糕的事情，因为虽然这种语法可能会让你认为类存在的错觉，事实上原型机制的表现基本上是其相反的行为。
 
-This is more than syntactic preference. Delegation is an entirely different, and more powerful, design pattern, one that replaces the need to design with classes and inheritance. But these assertions will absolutely fly in the face of nearly every other blog post, book, and conference talk on the subject for the entirety of JavaScript's lifetime.
+问题是，你选择忽略不匹配，假装你实现的是“继承”会更好，或者学习和拥抱对象原型系统的实际工作原理会更合适。后者更恰当的名称是“行为委托”。
 
-The claims I make regarding delegation versus inheritance come not from a dislike of the language and its syntax, but from the desire to see the true capability of the language properly leveraged and the endless confusion and frustration wiped away.
+这不仅仅是语法偏好。属性委托是一个完全不同的，更强大的设计模式，它代替了类和继承的设计。但是这些假设的讨论绝对会出现在几乎所有其他博客文章，书籍和会议，贯穿着整个JavaScript的生命。
 
-But the case I make regarding prototypes and delegation is a much more involved one than what I will indulge here. If you're ready to reconsider everything you think you know about JavaScript "classes" and "inheritance," I offer you the chance to "take the red pill" (*Matrix* 1999) and check out Chapters 4-6 of the *this & Object Prototypes* title of this series.
+我关于委托与继承的看法不是来自于对语言及其语法的厌恶，而是来自于希望看到语言的真正能力得以正确利用，无尽的混乱和沮丧得以消除。
 
-## Types & Grammar
+但我想讲的关于原型和属性委托远远不止我在这里所讲的。如果你准备重新思考你认为你知道的JavaScript“类”和“继承”的一切，我给你机会“吃下红丸”（"take the red pill" *Matrix* 1999）和阅读本系列书的*this和对象原型*的第4-6章。
 
-The third title in this series primarily focuses on tackling yet another highly controversial topic: type coercion. Perhaps no topic causes more frustration with JS developers than when you talk about the confusions surrounding implicit coercion.
+## 类型与语法
 
-By far, the conventional wisdom is that implicit coercion is a "bad part" of the language and should be avoided at all costs. In fact, some have gone so far as to call it a "flaw" in the design of the language. Indeed, there are tools whose entire job is to do nothing but scan your code and complain if you're doing anything even remotely like coercion.
+本系列书的第三个主题主要聚焦于解决另一个高度争议的话题：类型转换。可能没有比隐式的类型转换更加另JS开发者困惑的主题了。
 
-But is coercion really so confusing, so bad, so treacherous, that your code is doomed from the start if you use it?
+到目前为止，传统的看法是，隐式类型转换是语言的“不良部分”，应该不惜一切代价避免。 事实上，有些人甚至把它称为语言设计中的“缺陷”。而且事实上，有些工具的唯一作用就是扫描你的代码，查找你是否在使用这种类型转换。
 
-I say no. After having built up an understanding of how types and values really work in Chapters 1-3, Chapter 4 takes on this debate and fully explains how coercion works, in all its nooks and crevices. We see just what parts of coercion really are surprising and what parts actually make complete sense if given the time to learn.
+但是类型转换真的那么混乱，那么糟糕，那么奸诈，你的代码从一开始就完蛋了如果你使用它？
 
-But I'm not merely suggesting that coercion is sensible and learnable, I'm asserting that coercion is an incredibly useful and totally underestimated tool that *you should be using in your code.* I'm saying that coercion, when used properly, not only works, but makes your code better. All the naysayers and doubters will surely scoff at such a position, but I believe it's one of the main keys to upping your JS game.
+我觉得不是的。在前三章打下类型和值真正怎样工作的基础后，第四章开始介绍类型转换的方方面面。如果我们花些时间来学习，我们会看到类型转换究竟哪些部分令人困惑，哪些部分是非常有道理的。
 
-Do you want to just keep following what the crowd says, or are you willing to set all the assumptions aside and look at coercion with a fresh perspective? The *Types & Grammar* title of this series will coerce your thinking.
+我并不是仅仅解释类型转换是合理的和值得学习的，而是我认为类性转换是一个非常有用并且被低估的工具，并且*你应该在你的代码中使用*。我认为正确地使用类型转换不仅会让代码正常工作，并且会让代码变得更好。可能会有很多人认为这是一个笑话，但是我坚信这是提升你的JS能力的关键一点。
 
-## Async & Performance
+你会随大流认为类型转换一无是处，还是会搁置偏见，从一个新的视角审视类型转换？本系列书的*类型与语法*会让你思考。
 
-The first three titles of this series focus on the core mechanics of the language, but the fourth title branches out slightly to cover patterns on top of the language mechanics for managing asynchronous programming. Asynchrony is not only critical to the performance of our applications, it's increasingly becoming *the* critical factor in writability and maintainability.
+## 异步与性能
 
-The book starts first by clearing up a lot of terminology and concept confusion around things like "async," "parallel," and "concurrent," and explains in depth how such things do and do not apply to JS.
+本系列书的的前三个主题关注于语言的核心机制，但是第四个主题相当于独立的分支，关注语言管理异步编程的机制。异步编程不仅影响着我们程序的程序，并且越来越成为我们代码的易写性和可维护性的*关键因素*。
 
-Then we move into examining callbacks as the primary method of enabling asynchrony. But it's here that we quickly see that the callback alone is hopelessly insufficient for the modern demands of asynchronous programming. We identify two major deficiencies of callbacks-only coding: *Inversion of Control* (IoC) trust loss and lack of linear reason-ability.
+这本书一开始澄清了一些令人困惑的术语和概念，比如『异步』，『并行』以及『并发』，并且深入解释了这些东西在JS上使用怎样合适以及怎样不合适。
 
-To address these two major deficiencies, ES6 introduces two new mechanisms (and indeed, patterns): promises and generators.
+然后我们介绍了异步编程的一个主要方式，即回调函数。但是我们会很快看到对于现代异步编程的需求，回调函数是无法满足的。我们会看到回调函数两个主要的不足：无法被信任的*控制反转*（IoC）以及线性的逻辑顺序。
 
-Promises are a time-independent wrapper around a "future value," which lets you reason about and compose them regardless of if the value is ready or not yet. Moreover, they effectively solve the IoC trust issues by routing callbacks through a trustable and composable promise mechanism.
+为了解决这两个主要不足，ES6引入了两个新的机制（实际上是模式）：promises和generators。
 
-Generators introduce a new mode of execution for JS functions, whereby the generator can be paused at `yield` points and be resumed asynchronously later. The pause-and-resume capability enables synchronous, sequential looking code in the generator to be processed asynchronously behind the scenes. By doing so, we address the non-linear, non-local-jump confusions of callbacks and thereby make our asynchronous code sync-looking so as to be more reason-able.
+Promises是对一个『未来值』的与时间无关的包裹，你可以思考和组合这个值无论这个值是否准备好。此外，它使用了可信赖和可组合的promise机制，解决了IoC的信任问题。
 
-But it's the combination of promises and generators that "yields" our most effective asynchronous coding pattern to date in JavaScript. In fact, much of the future sophistication of asynchrony coming in ES7 and later will certainly be built on this foundation. To be serious about programming effectively in an async world, you're going to need to get really comfortable with combining promises and generators.
+Generators引进了一种新的JS函数的执行模式，generator可以在`yield`的点暂停执行并且可以在之后异步地继续执行。这种暂停-继续的能力让generator中看似同步顺序的代码异步地执行。这样做，我们就解决了回调函数的非线性，非本地跳转的问题，因此我们的异步代码看起来像是同步的，这样更加合理。
 
-If promises and generators are about expressing patterns that let our programs run more concurrently and thus get more processing accomplished in a shorter period, JS has many other facets of performance optimization worth exploring.
+到目前为止JavaScript依靠promises和generators的组合"yields（产生）"出了最有效的异步编程模式。事实上，未来ES7以及以后的版本中异步编程的大部分内容肯定会建立在这个基础上。要想真正写出有效的异步编程代码，你将需要非常熟练地结合使用promises和generator。
 
-Chapter 5 delves into topics like program parallelism with Web Workers and data parallelism with SIMD, as well as low-level optimization techniques like ASM.js. Chapter 6 takes a look at performance optimization from the perspective of proper benchmarking techniques, including what kinds of performance to worry about and what to ignore.
+如果promises和generator让我们的程序运行更加并发，从而在更短的时间内完成更多的处理，JS还有许多其他方面的性能优化值得探索。
 
-Writing JavaScript effectively means writing code that can break the constraint barriers of being run dynamically in a wide range of browsers and other environments. It requires a lot of intricate and detailed planning and effort on our parts to take a program from "it works" to "it works well."
+第5章探讨了Web Workers程序并行性、SIMD数据并行性以及像ASM.js这样的低级优化技术等主题。第6章从通用的基准测试技术的角度来看性能优化，包括什么样的性能表现需要担心以及什么样的需要忽略。
 
-The *Async & Performance* title is designed to give you all the tools and skills you need to write reasonable and performant JavaScript code.
+写出有效的JavaScript的代码意味着编写代码，可以打破在大量浏览器和其他环境中动态运行的约束限制。要让一个程序从『可以工作』到『工作地很好』需要我们大量复杂和详细的规划和努力。
 
-## ES6 & Beyond
+*异步与性能*主题会给很多写出合理和高性能的JavaScript代码的工具和技巧。
 
-No matter how much you feel you've mastered JavaScript to this point, the truth is that JavaScript is never going to stop evolving, and moreover, the rate of evolution is increasing rapidly. This fact is almost a metaphor for the spirit of this series, to embrace that we'll never fully *know* every part of JS, because as soon as you master it all, there's going to be new stuff coming down the line that you'll need to learn.
+## ES6及其之外
 
-This title is dedicated to both the short- and mid-term visions of where the language is headed, not just the *known* stuff like ES6 but the *likely* stuff beyond.
+无论你现在觉得已经掌握多少关于JavaScript的知识，实际上JavaScript实在不停地进化，而且进化速度越来越快。本系列书的名字有一个隐喻，即我们永远无法*知道*JS的方方面面，因为你学习的速度是赶不上新事物产生的速度的。
 
-While all the titles of this series embrace the state of JavaScript at the time of this writing, which is mid-way through ES6 adoption, the primary focus in the series has been more on ES5. Now, we want to turn our attention to ES6, ES7, and ...
+本主题致力于介绍语言的短期和中期远景，不只是像ES6这种*已知的*，并且包含*潜在的*之外的东西。
 
-Since ES6 is nearly complete at the time of this writing, *ES6 & Beyond* starts by dividing up the concrete stuff from the ES6 landscape into several key categories, including new syntax, new data structures (collections), and new processing capabilities and APIs. We cover each of these new ES6 features, in varying levels of detail, including reviewing details that are touched on in other books of this series.
+本系列书的所有主题都是有关JavaScript在本书写作时的当前状态，正是处于ES6时期，本系列书的关注点已经不仅仅是ES5了。现在，我们要将我们的关注点转向ES6，ES7，...
 
-Some exciting ES6 things to look forward to reading about: destructuring, default parameter values, symbols, concise methods, computed properties, arrow functions, block scoping, promises, generators, iterators, modules, proxies, weakmaps, and much, much more! Phew, ES6 packs quite a punch!
+本书写作时ES6的标准正在逐步完成，*ES6及其之外*将ES6分成几部分来介绍，包括新语法，新数据结构（集合）以及新的处理能力和一些API。在本书中，我们在不同等级的细节上覆盖到了各种ES6的新特性，包括复习本系列其他书相关的细节。
 
-The first part of the book is a roadmap for all the stuff you need to learn to get ready for the new and improved JavaScript you'll be writing and exploring over the next couple of years.
+本书将会介绍一些令人兴奋的ES6特性：解构，默认参数值，symbols，方法简写（concise methods），计算属性，箭头函数，块级作用域，promise，generator，iterator，module，proxy，weakmap等等！唷，ES6的东西可真不少！
 
-The latter part of the book turns attention to briefly glance at things that we can likely expect to see in the near future of JavaScript. The most important realization here is that post-ES6, JS is likely going to evolve feature by feature rather than version by version, which means we can expect to see these near-future things coming much sooner than you might imagine.
+这本书的第一部分是一个路线图，所有你需要学习到的新的和改进的JavaScript，这些东西你将在接下来的几年内编写和探索。
 
-The future for JavaScript is bright. Isn't it time we start learning it!?
+本书的后半部分将注意力转向简要浏览不久的将来的JavaScript。这里最重要ES6之后的事情，JS可能会随着特性的演进而进化，而不仅仅是版本的变化，这意味着我们可以看到这些近乎未来的东西比你想象来的更快。
 
-## Review
+JavaScript的未来是光明的。难道现在不是我们开始学习它的时间吗？
 
-The *YDKJS* series is dedicated to the proposition that all JS developers can and should learn all of the parts of this great language. No person's opinion, no framework's assumptions, and no project's deadline should be the excuse for why you never learn and deeply understand JavaScript.
+## 复习
 
-We take each important area of focus in the language and dedicate a short but very dense book to fully explore all the parts of it that you perhaps thought you knew but probably didn't fully.
+*YDKJS*系列的书籍的初衷就是让所有JS开发者可以并且应该学到这个伟大语言的所有部分。别人的意见，框架的限制，项目的最后期限都不应该是你不深入学习JavaScript的理由。
 
-"You Don't Know JS" isn't a criticism or an insult. It's a realization that all of us, myself included, must come to terms with. Learning JavaScript isn't an end goal but a process. We don't know JavaScript, yet. But we will!
+我们关注语言的每一个重点，并奉献一个简短但非常密集的书，以充分探索语言的所有部分，这些部分你可能认为你知道，但可能并不完全理解。
+
+『你不知道JS』并不是一个批评或讽刺。这是我们所有人都必须拥有的一个意识，包括自己。学习JavaScript不是最终目标，而是一个过程。我们还不知道JavaScript。但是我们将来会的！
