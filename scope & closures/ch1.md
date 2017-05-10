@@ -1,6 +1,6 @@
 > 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md)
 
-# 你不知道的JS：起步
+# 你不知道的JS：作用域与闭包
 # 第一章：什么是作用域
 
 在变量中存储值，然后取出或者修改它，这是几乎所有的编程语言一个最基础的范式。实际上，这种存储值和拉取值的范式实现了一段程序*状态*的改变。

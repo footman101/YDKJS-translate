@@ -1,6 +1,6 @@
 > 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md)
 
-# 你不知道的JS：起步
+# 你不知道的JS：作用域与闭包
 # 第二章：词法作用域
 
 在第一章中，我们将『作用域』定义为*引擎*用标识符查找变量的规则，包括当前*作用域*，以及其被包裹的*嵌套作用域*。
