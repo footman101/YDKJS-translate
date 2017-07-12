@@ -1,15 +1,17 @@
-# You Don't Know JS: Scope & Closures
-# Chapter 4: Hoisting
+> 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch4.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch4.md)
 
-By now, you should be fairly comfortable with the idea of scope, and how variables are attached to different levels of scope depending on where and how they are declared. Both function scope and block scope behave by the same rules in this regard: any variable declared within a scope is attached to that scope.
+# 你不知道的JS：作用域与闭包
+# 第四章：变量提升
 
-But there's a subtle detail of how scope attachment works with declarations that appear in various locations within a scope, and that detail is what we will examine here.
+到目前为止，你应该适应了作用域的概念，了解了变量是怎样根据定义位置的不同附着于不同层级的作用域的。函数作用域以及块级作用域的表现都遵守这一规则：在一个作用域内任何定义的变量都将附着于这个作用域。
 
-## Chicken Or The Egg?
+但有一个细节需要考虑，这些变量定义可能出现在作用域的任何位置，此时作用域的附着功能如何工作？这就是我们在这要讨论的问题，
 
-There's a temptation to think that all of the code you see in a JavaScript program is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
+## 鸡还是蛋？
 
-Consider this code:
+大家很容易认为，你在JavaScript程序中的看到的所有代码是一行一行解释的，从上到下，随着程序的执行。这大致上是对的，这个假设可能会导致你思考程序不正确。
+
+考虑这段代码：
 
 ```js
 a = 2;
@@ -19,33 +21,32 @@ var a;
 console.log( a );
 ```
 
-What do you expect to be printed in the `console.log(..)` statement?
+你期望`console.log(..)`语句打印出什么？
 
-Many developers would expect `undefined`, since the `var a` statement comes after the `a = 2`, and it would seem natural to assume that the variable is re-defined, and thus assigned the default `undefined`. However, the output will be `2`.
+很多开发者期望是`undefined`，由于`var a`语句出现在了`a = 2`语句之后，很自然地认为变量被重复定义了，因此默认被赋值为`undefined`。然而，这个输出是`2`。
 
-Consider another piece of code:
+考虑另一段代码片段：
 
 ```js
 console.log( a );
 
 var a = 2;
 ```
+你可能很容易认为，由于前一段代码片段展现出了非从上到下的查看行为，那么在这段代码中，`2`将会被打印。另外一些人可能会认为变量`a`在定义前使用，这将会抛出一个`ReferenceError`。
 
-You might be tempted to assume that, since the previous snippet exhibited some less-than-top-down looking behavior, perhaps in this snippet, `2` will also be printed. Others may think that since the `a` variable is used before it is declared, this must result in a `ReferenceError` being thrown.
+不幸的是，两种猜测都是不对的。输出是`undefined`。
 
-Unfortunately, both guesses are incorrect. `undefined` is the output.
+**那么，这到底是怎么回事儿？** 我们貌似是面对一个鸡还是蛋的问题。哪一个先出来？定义("egg")？还是赋值("chicken")?
 
-**So, what's going on here?** It would appear we have a chicken-and-the-egg question. Which comes first, the declaration ("egg"), or the assignment ("chicken")?
+## 编译器又来了
 
-## The Compiler Strikes Again
+要回答这个问题，我们要回到第一章，关于编译器的讨论。回想起*引擎*实际上会在解释JavaScript代码前编译它。编译的一个阶段就是找到所有的变量定义并把它们关联到合适的作用域。第二章给我们展示了这是词法作用域的核心。
 
-To answer this question, we need to refer back to Chapter 1, and our discussion of compilers. Recall that the *Engine* actually will compile your JavaScript code before it interprets it. Part of the compilation phase was to find and associate all declarations with their appropriate scopes. Chapter 2 showed us that this is the heart of Lexical Scope.
+那么，思考这些变量和函数定义的最好方式是，它们在你代码任何部分执行之前被预先处理了。
 
-So, the best way to think about things is that all declarations, both variables and functions, are processed first, before any part of your code is executed.
+当你看到`var a = 2;`，你可能认为这是一条语句。但是JavaScript实际上会认为这是两条语句：`var a;`和`a = 2;`。第一条语句，定义语句，在编译阶段被处理。第二条语句，赋值语句，被留在了*原地*，到了执行阶段才执行。
 
-When you see `var a = 2;`, you probably think of that as one statement. But JavaScript actually thinks of it as two statements: `var a;` and `a = 2;`. The first statement, the declaration, is processed during the compilation phase. The second statement, the assignment, is left **in place** for the execution phase.
-
-Our first snippet then should be thought of as being handled like this:
+那么我们的第一段代码片段应该被认为这样处理：
 
 ```js
 var a;
@@ -56,9 +57,9 @@ a = 2;
 console.log( a );
 ```
 
-...where the first part is the compilation and the second part is the execution.
+第一部分是在编译阶段，第二部分是在执行阶段。
 
-Similarly, our second snippet is actually processed as:
+相似的，我们的第二段代码实际是这样处理的：
 
 ```js
 var a;
@@ -69,11 +70,11 @@ console.log( a );
 a = 2;
 ```
 
-So, one way of thinking, sort of metaphorically, about this process, is that variable and function declarations are "moved" from where they appear in the flow of the code to the top of the code. This gives rise to the name "Hoisting".
+那么，关于这个处理过程，我们可以这样认为，变量和函数定义从它们在代码流出现的位置『移动』到了代码的开头。这种移动被称为『提升』。
 
-In other words, **the egg (declaration) comes before the chicken (assignment)**.
+换句话说，**蛋（定义）在鸡（赋值）之前出现**。
 
-**Note:** Only the declarations themselves are hoisted, while any assignments or other executable logic are left *in place*. If hoisting were to re-arrange the executable logic of our code, that could wreak havoc.
+**注意：** 只有定义本身被提升了，而任何赋值以及其他执行逻辑被留在了*原地*。如果提升会重新排列我们代码的执行逻辑，那将会是大破坏。
 
 ```js
 foo();
@@ -85,9 +86,9 @@ function foo() {
 }
 ```
 
-The function `foo`'s declaration (which in this case *includes* the implied value of it as an actual function) is hoisted, such that the call on the first line is able to execute.
+`foo`函数的定义（在此例中*包括了*它的隐式值，即实际的函数）被提升了，因此第一行中的函数调用可以执行。
 
-It's also important to note that hoisting is **per-scope**. So while our previous snippets were simplified in that they only included global scope, the `foo(..)` function we are now examining itself exhibits that `var a` is hoisted to the top of `foo(..)` (not, obviously, to the top of the program). So the program can perhaps be more accurately interpreted like this:
+同时，需要注意的是，提升是**在每一个作用域中的**。因此我们之前的代码片段只包括全局作用域，比较简单，这里的`foo(..)`本身就是一个作用域，内部的`var a`被提升到了`foo(..)`的开始（而不是，明显的，整个程序的开始）。因此整段程序可能更加准确地这样解释：
 
 ```js
 function foo() {
@@ -101,7 +102,7 @@ function foo() {
 foo();
 ```
 
-Function declarations are hoisted, as we just saw. But function expressions are not.
+函数定义被提升了，就像我们说的。但是函数表达式却不是这样。
 
 ```js
 foo(); // not ReferenceError, but TypeError!
@@ -111,9 +112,9 @@ var foo = function bar() {
 };
 ```
 
-The variable identifier `foo` is hoisted and attached to the enclosing scope (global) of this program, so `foo()` doesn't fail as a `ReferenceError`. But `foo` has no value yet (as it would if it had been a true function declaration instead of expression). So, `foo()` is attempting to invoke the `undefined` value, which is a `TypeError` illegal operation.
+变量标识符`foo`被提升并附着到了这段程序的包裹作用域（全局作用域）。因此`foo()`并没有抛出`ReferenceError`，但是`foo`此时并没有值（它是一个函数表达式而不是一个真正的函数定义）。因此，`foo()`这里相当于调用了`undefined`值，会抛出`TypeError`非法操作。
 
-Also recall that even though it's a named function expression, the name identifier is not available in the enclosing scope:
+同时，即使这是一个命名的函数表达式，名称标识符依旧在包裹作用域中不可用：
 
 ```js
 foo(); // TypeError
@@ -124,7 +125,7 @@ var foo = function bar() {
 };
 ```
 
-This snippet is more accurately interpreted (with hoisting) as:
+这段代码更准确地是这样（带着提升）解释：
 
 ```js
 var foo;
@@ -138,11 +139,11 @@ foo = function() {
 }
 ```
 
-## Functions First
+## 函数优先
 
-Both function declarations and variable declarations are hoisted. But a subtle detail (that *can* show up in code with multiple "duplicate" declarations) is that functions are hoisted first, and then variables.
+函数定义和变量定义都会被提升。但是有一个细微的细节（*可以*在代码有『重复』定义时出现）是，函数会被优先提升，其次是变量。
 
-Consider:
+考虑：
 
 ```js
 foo(); // 1
@@ -158,7 +159,7 @@ foo = function() {
 };
 ```
 
-`1` is printed instead of `2`! This snippet is interpreted by the *Engine* as:
+`1`会被打印出来而不是`2`！这段代码被*引擎*这样解释：
 
 ```js
 function foo() {
@@ -172,9 +173,9 @@ foo = function() {
 };
 ```
 
-Notice that `var foo` was the duplicate (and thus ignored) declaration, even though it came before the `function foo()...` declaration, because function declarations are hoisted before normal variables.
+注意即使`var foo`定义出现在`function foo()...`之前，它也是被重复（因此被忽略）定义了，因为函数定义提升优先于正常的变量定义。
 
-While multiple/duplicate `var` declarations are effectively ignored, subsequent function declarations *do* override previous ones.
+多重/重复`var`定义实际上被忽略了，随后的函数定义*确实*覆盖了之前的定义。
 
 ```js
 foo(); // 3
@@ -192,9 +193,9 @@ function foo() {
 }
 ```
 
-While this all may sound like nothing more than interesting academic trivia, it highlights the fact that duplicate definitions in the same scope are a really bad idea and will often lead to confusing results.
+这里可能听起来是些有趣的学院派琐事，但它确实说明了，在同一作用域中的重复定义是一件非常不好的事，可能会引起令人疑惑的结果。
 
-Function declarations that appear inside of normal blocks typically hoist to the enclosing scope, rather than being conditional as this code implies:
+正常代码块中的函数定义一般会提升到包裹作用域，而不会像相面这段代码描述的条件选择那样：
 
 ```js
 foo(); // "b"
@@ -208,14 +209,14 @@ else {
 }
 ```
 
-However, it's important to note that this behavior is not reliable and is subject to change in future versions of JavaScript, so it's probably best to avoid declaring functions in blocks.
+然而，要注意的是，这种行为是不可靠的，将来的JavaScript版本中可能会修改，所以，最好不要这样在代码块中定义函数。
 
-## Review (TL;DR)
+## 回顾（TL;DR）
 
-We can be tempted to look at `var a = 2;` as one statement, but the JavaScript *Engine* does not see it that way. It sees `var a` and `a = 2` as two separate statements, the first one a compiler-phase task, and the second one an execution-phase task.
+我们可能认为`var a = 2;`是一条语句，但是JavaScript*引擎*并不这样认为。它认为`var a`和`a = 2`是分开的语句，第一条是编译阶段的任务，第二条是执行阶段的任务。
 
-What this leads to is that all declarations in a scope, regardless of where they appear, are processed *first* before the code itself is executed. You can visualize this as declarations (variables and functions) being "moved" to the top of their respective scopes, which we call "hoisting".
+这样会导致一个结果，即在一个作用域中的所有定义，无论它们出现在哪里，会在代码执行之前*首先*被处理。你可以这样形象地认为，这些定义（变量和函数）被『移动』到了它们各自作用域的头部，这一过程我们称之为『提升』。
 
-Declarations themselves are hoisted, but assignments, even assignments of function expressions, are *not* hoisted.
+定义本身被提升了，然而赋值，即使函数表达式的赋值*没有*被提升。
 
-Be careful about duplicate declarations, especially mixed between normal var declarations and function declarations -- peril awaits if you do!
+注意重复定义，尤其是混合使用正常的var定义以及函数定义 -- 如果这样做，危险在等着你！
