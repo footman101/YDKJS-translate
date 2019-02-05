@@ -1,7 +1,7 @@
+> 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md)
+
 # 你不知道的JS：作用域与闭包
 # 第五章：作用域闭包
-
-> 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md)
 
 我们对于作用域工作原理有了一个非常健康坚实的理解，充满了希望来到了这里。
 
