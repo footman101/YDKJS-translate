@@ -1,5 +1,3 @@
-> 原文地址：[https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md)
-
 # 你不知道的JS：*this* & 对象原型
 # 第一章：`this`还是That?
 
